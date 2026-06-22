@@ -5,14 +5,15 @@ select * from order_items;
 select * from orders;
 
 
---total revenue generated 
+1--total revenue generated
+
 select sum(p.price*oi.quantity) as revenue
 from products p 
 join order_items oi
 	on p.product_id = oi.product_id
 
 
---Who is our most valuable customer by revenue?
+2--Who is our most valuable customer by revenue?
 
 select c.customer_id,
 		c.customer_name,
@@ -29,7 +30,7 @@ order by 3 desc
 limit 1;
 
 
---Which product generated the highest revenue?
+3--Which product generated the highest revenue?
 
 select p.product_id,
 		p.product_name,
@@ -41,7 +42,7 @@ group by p.product_id,p.product_name
 order by product_revenue desc
 limit 1;
 
---Find all customers and the number of orders they placed.
+4--Find all customers and the number of orders they placed.
 
 select c.customer_id , count(*) as order_count
 from customers c
@@ -50,7 +51,7 @@ join orders o
 group by c.customer_id 
 order by c.customer_id 
 
---Which customers placed more than one order?
+5--Which customers placed more than one order?
 
 select c.customer_id , count(*) as total_orders
 from customers c 
@@ -60,7 +61,7 @@ group by c.customer_id
 having count(*) >1
 order by c.customer_id;
 
---Which category generates the most revenue?
+6--Which category generates the most revenue?
 
 select p.category,sum(p.price*oi.quantity) as total_revenue
 from products p
@@ -70,7 +71,7 @@ group by p.category
 order by total_revenue desc
 limit 1;
 
---On average, how much money does a customer spend per order?
+7--On average, how much money does a customer spend per order?
 
 with cte as (
 select oi.order_id,
